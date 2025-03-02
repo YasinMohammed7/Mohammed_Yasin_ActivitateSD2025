@@ -18,5 +18,8 @@
     <ClCompile Include="Intalnire1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Intalnire2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
