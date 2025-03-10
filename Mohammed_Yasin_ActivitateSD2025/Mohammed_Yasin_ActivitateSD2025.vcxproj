@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Exercitiul1.c" />
     <ClCompile Include="Intalnire1.c" />
     <ClCompile Include="Intalnire2.c" />
   </ItemGroup>
