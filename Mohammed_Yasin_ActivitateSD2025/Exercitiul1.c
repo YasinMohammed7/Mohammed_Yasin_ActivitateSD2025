@@ -57,7 +57,7 @@ struct Masina* copiazaPrimeleNElemente(struct Masina* vector, int nrElemente, in
 
 	for (int i = 0; i < nrElementeCopiate; i++) {
 		vectorNou[i] = vector[i];
-		vectorNou[i].marca = (char*)malloc(sizeof(char) * (strlen(vector[i].marca + 1)));
+		vectorNou[i].marca = (char*)malloc(sizeof(char) * (strlen(vector[i].marca)+1));
 		strcpy_s(vectorNou[i].marca, strlen(vector[i].marca) + 1, vector[i].marca);
 	}
 
@@ -65,7 +65,16 @@ struct Masina* copiazaPrimeleNElemente(struct Masina* vector, int nrElemente, in
 }
 
 void dezalocare(struct Masina** vector, int* nrElemente) {
+	for (int i = 0; i < (*nrElemente); i++)
+	{
+		if ((*vector)[i].marca != NULL) {
+			free((*vector)[i].marca);
+		}
+	}
 
+	free(*vector);
+	*vector = NULL;
+	*nrElemente = 0;
 }
 
 void copiazaAnumiteElemente(struct Masina* vector, char nrElemente, float prag, struct Masina** vectorNou, int* dimensiune) {
@@ -81,9 +90,9 @@ struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente,
 }
 
 int main() {
-	struct Masina m;
+	//struct Masina m;
 
-	m = initializare(1, 100, "logan", 1.0, 'A');
+	//m = initializare(1, 100, "logan", 1.0, 'A');
 
 	//modificaCaiPutere(&m, 120);
 
@@ -105,6 +114,9 @@ int main() {
 
 	primeleMasini = copiazaPrimeleNElemente(masini, nrMasini, nrPrimeleMasini);
 
+	afisareVector(primeleMasini, nrPrimeleMasini);
+
+	dezalocare(&primeleMasini, &nrPrimeleMasini);
 	afisareVector(primeleMasini, nrPrimeleMasini);
 
 	return 0;
