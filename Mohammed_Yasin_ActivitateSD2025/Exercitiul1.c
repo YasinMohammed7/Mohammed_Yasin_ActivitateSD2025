@@ -53,6 +53,14 @@ struct Masina* copiazaPrimeleNElemente(struct Masina* vector, int nrElemente, in
 	
 	struct Masina *vectorNou=NULL;
 
+	vectorNou = (struct Masina*)malloc(sizeof(struct Masina) * nrElementeCopiate);
+
+	for (int i = 0; i < nrElementeCopiate; i++) {
+		vectorNou[i] = vector[i];
+		vectorNou[i].marca = (char*)malloc(sizeof(char) * (strlen(vector[i].marca + 1)));
+		strcpy_s(vectorNou[i].marca, strlen(vector[i].marca) + 1, vector[i].marca);
+	}
+
 	return vectorNou;
 }
 
@@ -79,17 +87,25 @@ int main() {
 
 	//modificaCaiPutere(&m, 120);
 
-	afisare(m);
+	//afisare(m);
 	//dezalocare(&m);
 
 	struct Masina* masini = NULL;
-	int nrMasini = 2;
+	int nrMasini = 3;
 	masini = (struct Masina*)malloc(sizeof(struct Masina) * nrMasini);
 
 	masini[0] = initializare(1, 100, "Tesla", 2.2, 'S');
 	masini[1] = initializare(2, 140, "BMW", 2.6, 'C');
+	masini[2] = initializare(3, 190, "Maseratti", 3.6, 'T');
 
 	afisareVector(masini, nrMasini);
+
+	struct Masina* primeleMasini = NULL;
+	int nrPrimeleMasini = 2;
+
+	primeleMasini = copiazaPrimeleNElemente(masini, nrMasini, nrPrimeleMasini);
+
+	afisareVector(primeleMasini, nrPrimeleMasini);
 
 	return 0;
 }
