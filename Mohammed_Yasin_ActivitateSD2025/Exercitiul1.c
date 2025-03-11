@@ -28,18 +28,48 @@ void afisare(struct Masina m) {
 
 }
 
-void modificaCaiPutere(struct Masina* m, int caiPutere) {
-	if (caiPutere > 0)
+//void modificaCaiPutere(struct Masina* m, int caiPutere) {
+//	if (caiPutere > 0)
+//	{
+//		m->caiPutere = caiPutere;
+//	}
+//}
+//
+//void dezalocare(struct Masina* m) {
+//	if (m->marca != NULL) {
+//		free(m->marca);
+//		m->marca = NULL;
+//	}
+//}
+
+void afisareVector(struct Masina* vector, int nrElemente) {
+	for (int i = 0; i < nrElemente; i++)
 	{
-		m->caiPutere = caiPutere;
+		afisare(vector[i]);
 	}
 }
 
-void dezalocare(struct Masina* m) {
-	if (m->marca != NULL) {
-		free(m->marca);
-		m->marca = NULL;
-	}
+struct Masina* copiazaPrimeleNElemente(struct Masina* vector, int nrElemente, int nrElementeCopiate) {
+	
+	struct Masina *vectorNou=NULL;
+
+	return vectorNou;
+}
+
+void dezalocare(struct Masina** vector, int* nrElemente) {
+
+}
+
+void copiazaAnumiteElemente(struct Masina* vector, char nrElemente, float prag, struct Masina** vectorNou, int* dimensiune) {
+	
+}
+
+struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente, const char* conditie) {
+	
+	struct Masina m;
+	m.id = 1;
+
+	return m;
 }
 
 int main() {
@@ -47,11 +77,19 @@ int main() {
 
 	m = initializare(1, 100, "logan", 1.0, 'A');
 
-	modificaCaiPutere(&m, 120);
+	//modificaCaiPutere(&m, 120);
 
 	afisare(m);
-	dezalocare(&m);
-	afisare(m);
+	//dezalocare(&m);
+
+	struct Masina* masini = NULL;
+	int nrMasini = 2;
+	masini = (struct Masina*)malloc(sizeof(struct Masina) * nrMasini);
+
+	masini[0] = initializare(1, 100, "Tesla", 2.2, 'S');
+	masini[1] = initializare(2, 140, "BMW", 2.6, 'C');
+
+	afisareVector(masini, nrMasini);
 
 	return 0;
 }
