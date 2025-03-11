@@ -77,8 +77,33 @@ void dezalocare(struct Masina** vector, int* nrElemente) {
 	*nrElemente = 0;
 }
 
-void copiazaAnumiteElemente(struct Masina* vector, char nrElemente, float prag, struct Masina** vectorNou, int* dimensiune) {
-	
+void copiazaMasiniPuternice(struct Masina* vector, char nrElemente, float capacitateMinima, struct Masina** vectorNou, int* dimensiune) {
+	*dimensiune = 0;
+
+	for (int i = 0; i < nrElemente; i++)
+	{
+		if (vector[i].capacitateMotor > capacitateMinima) {
+			(*dimensiune)++;
+		}
+	}
+
+	if ((*vectorNou) != NULL) {
+		free(*vectorNou);
+	}
+
+	int k = 0;
+
+	*vectorNou = (struct Masina*)malloc(sizeof(struct Masina) * (*dimensiune));
+	for (int i = 0; i < nrElemente; i++)
+	{
+		if (vector[i].capacitateMotor > capacitateMinima)
+		{
+			(*vectorNou)[k] = vector[i];
+			(*vectorNou)[k].marca = (char*)malloc(sizeof(char) * (strlen(vector[i].marca) + 1));
+			strcpy_s((*vectorNou)[k].marca, strlen(vector[i].marca) + 1, vector[i].marca);
+			k++;
+		}
+	}
 }
 
 struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente, const char* conditie) {
@@ -119,5 +144,12 @@ int main() {
 	dezalocare(&primeleMasini, &nrPrimeleMasini);
 	afisareVector(primeleMasini, nrPrimeleMasini);
 
+	struct Masina* masiniPuternice = NULL;
+	int nrMasiniPuternice = 0;
+	copiazaMasiniPuternice(masini, nrMasini, 2.0, &masiniPuternice, &nrMasiniPuternice);
+	printf("\n\nMasini puternice:\n");
+	afisareVector(masiniPuternice, nrMasiniPuternice);
+
+	dezalocare(&masiniPuternice, &nrMasiniPuternice);
 	return 0;
 }
