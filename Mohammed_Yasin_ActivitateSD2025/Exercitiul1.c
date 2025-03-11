@@ -106,10 +106,19 @@ void copiazaMasiniPuternice(struct Masina* vector, char nrElemente, float capaci
 	}
 }
 
-struct Masina getPrimulElementConditionat(struct Masina* vector, int nrElemente, const char* conditie) {
+struct Masina getPrimaMasinabyMarca(struct Masina* vector, int nrElemente, const char* marca) {
 	
 	struct Masina m;
-	m.id = 1;
+	m.marca = NULL;
+	for (int i = 0; i < nrElemente; i++)
+	{
+		if (strcmp(vector[i].marca, marca) == 0) {
+			m = vector[i];
+			m.marca = (char*)malloc(strlen(vector[i].marca) + 1);
+			strcpy_s(m.marca, strlen(vector[i].marca) + 1, vector[i].marca);
+			return m;
+		}
+	}
 
 	return m;
 }
@@ -151,5 +160,16 @@ int main() {
 	afisareVector(masiniPuternice, nrMasiniPuternice);
 
 	dezalocare(&masiniPuternice, &nrMasiniPuternice);
+	printf("\n\nPrima masina:\n");
+	struct Masina primaMasina = getPrimaMasinabyMarca(masini, nrMasini, "Maseratti");
+	afisare(primaMasina);
+
+	if (primaMasina.marca != NULL)
+	{
+		free(primaMasina.marca);
+		primaMasina.marca = NULL;
+	}
+
+	dezalocare(&masini, &nrMasini);
 	return 0;
 }
