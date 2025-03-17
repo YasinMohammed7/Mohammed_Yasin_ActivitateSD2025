@@ -26,6 +26,10 @@ void afisareStilou(Stilou stilou) {
 }
 
 void afisareVectorStilouri(Stilou* stilouri, int nrStilouri) {
+	for (int i = 0; i < nrStilouri; i++)
+	{
+		afisareStilou((stilouri[i]));
+	}
 }
 
 void adaugaStilouInVector(Stilou** stilouri, int* nrStilouri, Stilou stilouNoua) {
