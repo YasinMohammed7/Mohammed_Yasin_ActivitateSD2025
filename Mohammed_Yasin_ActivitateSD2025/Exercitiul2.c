@@ -46,8 +46,23 @@ void adaugaStilouInVector(Stilou** stilouri, int* nrStilouri, Stilou stilouNou) 
 }
 
 Stilou citireStilouFisier(FILE* file) {
-	//functia citeste o Stilou dintr-un strceam deja deschis
-	//Stilou citita este returnata;
+	Stilou s;
+	char buffer[100];
+	char sep[4] = ",;\n";
+	fgets(buffer, 100, file);
+	s.id = atoi(strtok(buffer, sep));
+	s.lungime = atoi(strtok(NULL, sep));
+	s.pret = atof(strtok(NULL,sep));
+	char* aux;
+	aux = strtok(NULL, sep);
+	s.firma = (char*)malloc(strlen(aux) + 1);
+	strcpy(s.firma, aux);
+	aux = strtok(NULL, sep);
+	s.culoare = (char*)malloc(strlen(aux) + 1);
+	strcpy(s.culoare, aux);
+	s.model = strtok(NULL, sep)[0];
+
+	return s;
 }
 
 Stilou* citireVectorStilouriFisier(const char* numeFisier, int* nrStilouriCitite) {
