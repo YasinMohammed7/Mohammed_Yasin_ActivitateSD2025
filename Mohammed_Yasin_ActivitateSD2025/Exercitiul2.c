@@ -32,9 +32,17 @@ void afisareVectorStilouri(Stilou* stilouri, int nrStilouri) {
 	}
 }
 
-void adaugaStilouInVector(Stilou** stilouri, int* nrStilouri, Stilou stilouNoua) {
-	//adauga in vectorul primit o noua Stilou pe care o primim ca parametru
-	//ATENTIE - se modifica numarul de Stilouri din vector;
+void adaugaStilouInVector(Stilou** stilouri, int* nrStilouri, Stilou stilouNou) {
+	Stilou* aux = (Stilou*)malloc(sizeof(Stilou) * ((*nrStilouri) + 1));
+	for (int i = 0; i < *nrStilouri; i++)
+	{
+		aux[i] = (*stilouri)[i];
+	}
+
+	aux[(*nrStilouri)] = stilouNou; // shallow copy
+	free((*stilouri));
+	(*stilouri) = aux;
+	(*nrStilouri)++;
 }
 
 Stilou citireStilouFisier(FILE* file) {
