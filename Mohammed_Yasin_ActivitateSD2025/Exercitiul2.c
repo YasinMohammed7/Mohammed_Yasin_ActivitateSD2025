@@ -66,10 +66,14 @@ Stilou citireStilouFisier(FILE* file) {
 }
 
 Stilou* citireVectorStilouriFisier(const char* numeFisier, int* nrStilouriCitite) {
-	//functia primeste numele fisierului, il deschide si citeste toate Stilourile din fisier
-	//prin apelul repetat al functiei citireStilouFisier()
-	//numarul de Stilouri este determinat prin numarul de citiri din fisier
-	//ATENTIE - la final inchidem fisierul/stream-ul
+	FILE* file = fopen(numeFisier, "r");
+	Stilou* stilouri = NULL;
+	while (!feof(file)) {
+		adaugaStilouInVector(&stilouri, nrStilouriCitite, citireStilouFisier(file));
+	}
+
+	fclose(file);
+	return stilouri;
 }
 
 void dezalocareVectorStilouri(Stilou** vector, int* nrStilouri) {
