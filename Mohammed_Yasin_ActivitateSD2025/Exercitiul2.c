@@ -1,4 +1,4 @@
-#define CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,12 +17,12 @@ struct StructuraStilou {
 typedef struct StructuraStilou Stilou;
 
 void afisareStilou(Stilou stilou) {
-	printf("ID: %d", stilou.id);
-	printf("Lungime: %d", stilou.lungime);
-	printf("Pret: %.1f", stilou.pret);
-	printf("Firma: %s", stilou.firma);
-	printf("culoare: %s", stilou.culoare);
-	printf("Model: %c", stilou.model);
+	printf("ID: %d\n", stilou.id);
+	printf("Lungime: %d\n", stilou.lungime);
+	printf("Pret: %.1f\n", stilou.pret);
+	printf("Firma: %s\n", stilou.firma);
+	printf("culoare: %s\n", stilou.culoare);
+	printf("Model: %c\n\n", stilou.model);
 }
 
 void afisareVectorStilouri(Stilou* stilouri, int nrStilouri) {
@@ -40,7 +40,7 @@ void adaugaStilouInVector(Stilou** stilouri, int* nrStilouri, Stilou stilouNou) 
 	}
 
 	aux[(*nrStilouri)] = stilouNou; // shallow copy
-	free((*stilouri));
+	free(*stilouri);
 	(*stilouri) = aux;
 	(*nrStilouri)++;
 }
@@ -77,10 +77,26 @@ Stilou* citireVectorStilouriFisier(const char* numeFisier, int* nrStilouriCitite
 }
 
 void dezalocareVectorStilouri(Stilou** vector, int* nrStilouri) {
-	//este dezalocat intreg vectorul de masini
+	for (int i = 0; i < *nrStilouri; i++)
+	{
+		if ((*vector)[i].firma != NULL)
+			free((*vector)[i].firma);
+		if ((*vector)[i].culoare != NULL)
+			free((*vector)[i].culoare);
+
+	}
+
+	free(*vector);
+	(*vector) = NULL;
+	(*nrStilouri) = 0;
 }
 
 int main() {
+	int nrStilouri = 0;
+
+	Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
+	afisareVectorStilouri(stilouri, nrStilouri);
+	dezalocareVectorStilouri(&stilouri, &nrStilouri);
 	
 	return 0;
-}
+} 
