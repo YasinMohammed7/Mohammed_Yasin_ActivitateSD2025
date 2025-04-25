@@ -28,6 +28,23 @@ void afisareListaStilouri(Nod* cap) {
 	}
 }
 
+void adaugaStilouInLista(Nod** cap, Stilou stilouNou) {
+	// la sfarsit
+	Nod* nou = (Nod*)malloc(sizeof(Nod));
+	nou->info = stilouNou; // shallow copy
+	nou->next = NULL;
+	if (*cap) {
+		Nod* p = *cap;
+		while (p->next) {
+			p = p->next;
+		}
+		p->next = nou;
+	}
+	else {
+		*cap = nou;
+	}
+}
+
 void afisareStilou(Stilou stilou) {
 	printf("ID: %d\n", stilou.id);
 	printf("Lungime: %d\n", stilou.lungime);
