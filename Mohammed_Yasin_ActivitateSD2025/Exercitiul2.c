@@ -16,6 +16,18 @@ struct StructuraStilou {
 };
 typedef struct StructuraStilou Stilou;
 
+typedef struct {
+	Stilou info;
+	struct Nod* next;
+} Nod;
+
+void afisareListaStilouri(Nod* cap) {
+	while (cap != NULL) {
+		afisareStilou(cap->info);
+		cap = cap->next;
+	}
+}
+
 void afisareStilou(Stilou stilou) {
 	printf("ID: %d\n", stilou.id);
 	printf("Lungime: %d\n", stilou.lungime);
