@@ -45,6 +45,13 @@ void adaugaStilouInLista(Nod** cap, Stilou stilouNou) {
 	}
 }
 
+void adaugaStilouInListaLaInceput(Nod** cap, Stilou stilouNou) {
+	Nod* nou = (Nod*)malloc(sizeof(Nod));
+	nou->info = stilouNou; // shallow copy
+	nou->next = *cap;
+	*cap = nou;
+}
+
 void afisareStilou(Stilou stilou) {
 	printf("ID: %d\n", stilou.id);
 	printf("Lungime: %d\n", stilou.lungime);
