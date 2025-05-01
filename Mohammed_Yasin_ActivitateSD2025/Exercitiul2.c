@@ -112,6 +112,16 @@ Stilou* citireVectorStilouriFisier(const char* numeFisier, int* nrStilouriCitite
 	return stilouri;
 }
 
+Nod* citireListaStilouriDinDisier(const char* numeFisier) {
+	Nod* cap = NULL;
+	FILE* f = fopen(numeFisier, "r");
+	while (!feof(f)) {
+		adaugaStilouInLista(&cap, citireStilouFisier(f));
+	}
+	fclose(f);
+	return cap;
+}
+
 void dezalocareVectorStilouri(Stilou** vector, int* nrStilouri) {
 	for (int i = 0; i < *nrStilouri; i++)
 	{
