@@ -16,13 +16,23 @@ struct StructuraStilou {
 };
 typedef struct StructuraStilou Stilou;
 
-typedef struct {
+struct Nod {
 	Stilou info;
 	struct Nod* next;
-} Nod;
+};
+typedef struct Nod Nod;
+
+void afisareStilou(Stilou stilou) {
+	printf("ID: %d\n", stilou.id);
+	printf("Lungime: %d\n", stilou.lungime);
+	printf("Pret: %.1f\n", stilou.pret);
+	printf("Firma: %s\n", stilou.firma);
+	printf("culoare: %s\n", stilou.culoare);
+	printf("Model: %c\n\n", stilou.model);
+}
 
 void afisareListaStilouri(Nod* cap) {
-	while (cap != NULL) {
+	while (cap) {
 		afisareStilou(cap->info);
 		cap = cap->next;
 	}
@@ -50,15 +60,6 @@ void adaugaStilouInListaLaInceput(Nod** cap, Stilou stilouNou) {
 	nou->info = stilouNou; // shallow copy
 	nou->next = *cap;
 	*cap = nou;
-}
-
-void afisareStilou(Stilou stilou) {
-	printf("ID: %d\n", stilou.id);
-	printf("Lungime: %d\n", stilou.lungime);
-	printf("Pret: %.1f\n", stilou.pret);
-	printf("Firma: %s\n", stilou.firma);
-	printf("culoare: %s\n", stilou.culoare);
-	printf("Model: %c\n\n", stilou.model);
 }
 
 void afisareVectorStilouri(Stilou* stilouri, int nrStilouri) {
@@ -116,7 +117,7 @@ Nod* citireListaStilouriDinDisier(const char* numeFisier) {
 	Nod* cap = NULL;
 	FILE* f = fopen(numeFisier, "r");
 	while (!feof(f)) {
-		adaugaStilouInLista(&cap, citireStilouFisier(f));
+		adaugaStilouInListaLaInceput(&cap, citireStilouFisier(f));
 	}
 	fclose(f);
 	return cap;
@@ -137,12 +138,31 @@ void dezalocareVectorStilouri(Stilou** vector, int* nrStilouri) {
 	(*nrStilouri) = 0;
 }
 
+void dezalocareListaStilouri(Nod** cap) {
+	Nod* p;
+	while (*cap) {
+		p = *cap;
+		*cap = p->next;
+		if (p->info.culoare) {
+			free(p->info.culoare);
+		}
+		if (p->info.firma) {
+			free(p->info.firma);
+		}
+		free(p);
+	}
+}
+
 int main() {
 	int nrStilouri = 0;
 
-	Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
+	/*Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
 	afisareVectorStilouri(stilouri, nrStilouri);
-	dezalocareVectorStilouri(&stilouri, &nrStilouri);
+	dezalocareVectorStilouri(&stilouri, &nrStilouri);*/
+
+	Nod* cap = citireListaStilouriDinDisier("stilouri.txt");
+	afisareListaStilouri(cap);
+	dezalocareListaStilouri(&cap);
 	
 	return 0;
 } 

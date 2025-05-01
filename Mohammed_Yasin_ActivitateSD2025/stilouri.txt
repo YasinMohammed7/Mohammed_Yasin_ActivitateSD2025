@@ -1,5 +1,5 @@
-1,20,40,pilot,albastru,M
-2,40,23,bic,galben,S
+1,20,40.2,pilot,albastru,M
+2,40,23.3,bic,galben,S
 3,10,22.4,rotring,rosu,L
 4,50,11.3,sky,verde,C
 5,23,34.5,parker,alb,T
