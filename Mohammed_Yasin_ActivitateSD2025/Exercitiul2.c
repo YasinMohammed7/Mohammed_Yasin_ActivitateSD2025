@@ -117,7 +117,7 @@ Nod* citireListaStilouriDinDisier(const char* numeFisier) {
 	Nod* cap = NULL;
 	FILE* f = fopen(numeFisier, "r");
 	while (!feof(f)) {
-		adaugaStilouInListaLaInceput(&cap, citireStilouFisier(f));
+		adaugaStilouInLista(&cap, citireStilouFisier(f));
 	}
 	fclose(f);
 	return cap;
@@ -153,8 +153,22 @@ void dezalocareListaStilouri(Nod** cap) {
 	}
 }
 
+float calculezaPretMediu(Nod* cap) {
+	float sum = 0;
+	int contor = 0;
+	while (cap) {
+		sum += cap->info.pret;
+		contor++;
+		cap = cap->next;
+	}
+	if (contor > 0) {
+		return sum / contor;
+	}
+	return 0;
+}
+
 int main() {
-	int nrStilouri = 0;
+	//int nrStilouri = 0;
 
 	/*Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
 	afisareVectorStilouri(stilouri, nrStilouri);
@@ -162,6 +176,7 @@ int main() {
 
 	Nod* cap = citireListaStilouriDinDisier("stilouri.txt");
 	afisareListaStilouri(cap);
+	printf("Pret mediu: %.2f", calculezaPretMediu(cap));
 	dezalocareListaStilouri(&cap);
 	
 	return 0;
