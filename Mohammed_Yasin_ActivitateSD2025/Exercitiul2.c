@@ -167,8 +167,23 @@ float calculezaPretMediu(Nod* cap) {
 	return 0;
 }
 
+float pretStilouPerFirma(Nod* cap, const char* firma) {
+	float sum = 0;
+
+	while (cap) {
+		if (strcmp(cap->info.firma, firma) == 0) {
+			sum += cap->info.pret;
+		}
+		cap = cap->next;
+	}
+
+	return sum;
+	
+}
+
 int main() {
 	//int nrStilouri = 0;
+	char firma[20] = "parker";
 
 	/*Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
 	afisareVectorStilouri(stilouri, nrStilouri);
@@ -176,7 +191,8 @@ int main() {
 
 	Nod* cap = citireListaStilouriDinDisier("stilouri.txt");
 	afisareListaStilouri(cap);
-	printf("Pret mediu: %.2f", calculezaPretMediu(cap));
+	printf("Pret mediu: %.2f\n", calculezaPretMediu(cap));
+	printf("Pret total firma %s: %.2f\n",firma, pretStilouPerFirma(cap, firma));
 	dezalocareListaStilouri(&cap);
 	
 	return 0;
