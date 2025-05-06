@@ -202,6 +202,15 @@ void afisareListaMasiniDeLaInceput(ListaDubla lista) {
 	}
 }
 
+void afisareListaMasiniDeLaSfarsit(ListaDubla lista) {
+	DNod* p = lista.last;
+
+	while (p) {
+		afisareStilou(p->info);
+		p = p->prev;
+	}
+}
+
 int main() {
 	//int nrStilouri = 0;
 	char firma[20] = "parker";
