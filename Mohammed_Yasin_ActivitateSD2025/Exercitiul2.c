@@ -193,7 +193,7 @@ typedef struct {
 	int nrNoduri;
 } ListaDubla;
 
-void afisareListaMasiniDeLaInceput(ListaDubla lista) {
+void afisareListaDStilouriDeLaInceput(ListaDubla lista) {
 	DNod* p = lista.first;
 
 	while (p) {
@@ -202,13 +202,28 @@ void afisareListaMasiniDeLaInceput(ListaDubla lista) {
 	}
 }
 
-void afisareListaMasiniDeLaSfarsit(ListaDubla lista) {
+void afisareListaDStilouriDeLaSfarsit(ListaDubla lista) {
 	DNod* p = lista.last;
 
 	while (p) {
 		afisareStilou(p->info);
 		p = p->prev;
 	}
+}
+
+void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
+	DNod* nou = (DNod*)malloc(sizeof(DNod));
+	nou->info = stilouNou;
+	nou->next = NULL;
+	nou->prev = lista->last;
+
+	if (lista->last) {
+		lista->last->next = nou;
+	}
+	else {
+		lista->first = nou;
+	}
+	lista->last = nou;
 }
 
 int main() {
