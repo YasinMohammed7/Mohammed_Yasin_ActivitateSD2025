@@ -181,6 +181,27 @@ float pretStilouPerFirma(Nod* cap, const char* firma) {
 	
 }
 
+typedef struct {
+	Stilou info;
+	DNod* next;
+	DNod* prev;
+} DNod;
+
+typedef struct {
+	DNod* first;
+	DNod* last;
+	int nrNoduri;
+} ListaDubla;
+
+void afisareListaMasiniDeLaInceput(ListaDubla lista) {
+	DNod* p = lista.first;
+
+	while (p) {
+		afisareStilou(p->info);
+		p = p->next;
+	}
+}
+
 int main() {
 	//int nrStilouri = 0;
 	char firma[20] = "parker";
@@ -189,11 +210,11 @@ int main() {
 	afisareVectorStilouri(stilouri, nrStilouri);
 	dezalocareVectorStilouri(&stilouri, &nrStilouri);*/
 
-	Nod* cap = citireListaStilouriDinDisier("stilouri.txt");
+	/*Nod* cap = citireListaStilouriDinDisier("stilouri.txt");
 	afisareListaStilouri(cap);
 	printf("Pret mediu: %.2f\n", calculezaPretMediu(cap));
 	printf("Pret total firma %s: %.2f\n",firma, pretStilouPerFirma(cap, firma));
-	dezalocareListaStilouri(&cap);
+	dezalocareListaStilouri(&cap);*/
 	
 	return 0;
 } 
