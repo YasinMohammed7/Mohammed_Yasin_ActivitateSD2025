@@ -211,7 +211,7 @@ void afisareListaDStilouriDeLaSfarsit(ListaDubla lista) {
 	}
 }
 
-void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
+void adaugaStilouInListaDLaSfarsit(ListaDubla* lista, Stilou stilouNou) {
 	DNod* nou = (DNod*)malloc(sizeof(DNod));
 	nou->info = stilouNou;
 	nou->next = NULL;
@@ -224,6 +224,22 @@ void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
 		lista->first = nou;
 	}
 	lista->last = nou;
+}
+
+void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
+	DNod* nou = (DNod*)malloc(sizeof(DNod));
+	nou->info = stilouNou;
+	nou->next = lista->first;
+	nou->prev = NULL;
+
+	if (lista->first)
+	{
+		lista->first->prev = nou;
+	}
+	else {
+		lista->last = nou;
+	}
+	lista->first = nou;
 }
 
 int main() {
