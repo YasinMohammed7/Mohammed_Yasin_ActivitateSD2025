@@ -181,15 +181,15 @@ float pretStilouPerFirma(Nod* cap, const char* firma) {
 	
 }
 
-typedef struct {
+typedef struct DNod{
 	Stilou info;
-	DNod* next;
-	DNod* prev;
+	struct DNod* next;
+	struct DNod* prev;
 } DNod;
 
 typedef struct {
-	DNod* first;
-	DNod* last;
+	struct DNod* first;
+	struct DNod* last;
 	int nrNoduri;
 } ListaDubla;
 
@@ -258,6 +258,24 @@ ListaDubla citireLDStilouDinFisier(const char* fisier) {
 	return lista;
 }
 
+void dezalocareLDStilouri(ListaDubla* lista) {
+	DNod* p = lista->first;
+	while (p) {
+		DNod* aux = p;
+		p = p->next;
+		if (aux->info.culoare) {
+			free(aux->info.culoare);
+		}
+		if (aux->info.firma) {
+			free(aux->info.firma);
+		}
+		free(aux);
+	}
+	lista->first = NULL;
+	lista->last = NULL;
+	lista->nrNoduri = NULL;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
@@ -271,6 +289,10 @@ int main() {
 	printf("Pret mediu: %.2f\n", calculezaPretMediu(cap));
 	printf("Pret total firma %s: %.2f\n",firma, pretStilouPerFirma(cap, firma));
 	dezalocareListaStilouri(&cap);*/
+
+	ListaDubla lista = citireLDStilouDinFisier("stilouri.txt");
+	afisareListaDStilouriDeLaInceput(lista);
+	dezalocareLDStilouri(&lista);
 	
 	return 0;
 } 
