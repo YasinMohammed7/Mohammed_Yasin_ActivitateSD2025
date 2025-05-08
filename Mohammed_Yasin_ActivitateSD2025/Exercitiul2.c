@@ -224,6 +224,7 @@ void adaugaStilouInListaDLaSfarsit(ListaDubla* lista, Stilou stilouNou) {
 		lista->first = nou;
 	}
 	lista->last = nou;
+	lista->nrNoduri++;
 }
 
 void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
@@ -240,11 +241,26 @@ void adaugaStilouInListaDLaInceput(ListaDubla* lista, Stilou stilouNou) {
 		lista->last = nou;
 	}
 	lista->first = nou;
+	lista->nrNoduri++;
+}
+
+ListaDubla citireLDStilouDinFisier(const char* fisier) {
+	FILE* f = fopen(fisier, "r");
+	ListaDubla lista;
+	lista.first = NULL;
+	lista.last = NULL;
+	lista.nrNoduri = 0;
+	while (!feof(f)) {
+		adaugaStilouInListaDLaSfarsit(&lista, citireStilouFisier(f));
+	}
+	fclose(f);
+
+	return lista;
 }
 
 int main() {
 	//int nrStilouri = 0;
-	char firma[20] = "parker";
+	//char firma[20] = "parker";
 
 	/*Stilou* stilouri = citireVectorStilouriFisier("stilouri.txt", &nrStilouri);
 	afisareVectorStilouri(stilouri, nrStilouri);
