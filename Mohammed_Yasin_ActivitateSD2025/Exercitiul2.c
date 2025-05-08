@@ -276,6 +276,17 @@ void dezalocareLDStilouri(ListaDubla* lista) {
 	lista->nrNoduri = NULL;
 }
 
+float calculeazaPretMediuLD(ListaDubla lista) {
+	float sum = 0;
+	DNod* p = lista.first;
+	while (p) {
+		sum += p->info.pret;
+		p = p->next;
+	}
+
+	return sum / lista.nrNoduri;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
@@ -292,6 +303,7 @@ int main() {
 
 	ListaDubla lista = citireLDStilouDinFisier("stilouri.txt");
 	afisareListaDStilouriDeLaInceput(lista);
+	printf("Pret mediu lista dubla: %.2f", calculeazaPretMediuLD(lista));
 	dezalocareLDStilouri(&lista);
 	
 	return 0;
