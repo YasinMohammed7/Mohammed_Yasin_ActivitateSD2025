@@ -287,6 +287,26 @@ float calculeazaPretMediuLD(ListaDubla lista) {
 	return sum / lista.nrNoduri;
 }
 
+char* getFirmaStilouScump(ListaDubla lista) {
+	if (lista.first)
+	{
+		DNod* max = lista.first;
+		DNod* p = lista.first->next;
+		char* firmaScumpa = (char*)malloc(strlen(max->info.firma) + 1);
+		while (p) {
+			if (p->info.pret > max->info.pret) {
+				max = p;
+			}
+			p = p->next;
+		}
+		strcpy_s(firmaScumpa, strlen(max->info.firma) + 1, max->info.firma);
+		return firmaScumpa;
+	}
+	else return NULL;
+
+	
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
@@ -303,7 +323,9 @@ int main() {
 
 	ListaDubla lista = citireLDStilouDinFisier("stilouri.txt");
 	afisareListaDStilouriDeLaInceput(lista);
-	printf("Pret mediu lista dubla: %.2f", calculeazaPretMediuLD(lista));
+	printf("Pret mediu lista dubla: %.2f\n", calculeazaPretMediuLD(lista));
+	char* numeFirma = getFirmaStilouScump(lista);
+	printf("Cel mai scump stilou este de la firma: %s", numeFirma);
 	dezalocareLDStilouri(&lista);
 	
 	return 0;
