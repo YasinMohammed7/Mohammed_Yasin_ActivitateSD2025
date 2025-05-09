@@ -372,6 +372,19 @@ Hashtable citireStilouriDinFisierHT(const char* numeFisier, int dim) {
 	return ht;
 }
 
+void afisareHashtable(Hashtable ht) {
+	for (int i = 0; i < ht.dim; i++) {
+		if (ht.tabela[i])
+		{
+			printf("Stilourile de pe pozitia %d sunt:\n", i);
+			afisareListaStilouri(ht.tabela[i]);
+		}
+		else {
+			printf("\nPe pozitia %d nu avem stilouri.\n\n", i);
+		}
+	}
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
@@ -386,13 +399,16 @@ int main() {
 	printf("Pret total firma %s: %.2f\n",firma, pretStilouPerFirma(cap, firma));
 	dezalocareListaStilouri(&cap);*/
 
-	ListaDubla lista = citireLDStilouDinFisier("stilouri.txt");
+	/*ListaDubla lista = citireLDStilouDinFisier("stilouri.txt");
 	afisareListaDStilouriDeLaInceput(lista);
 	printf("Pret mediu lista dubla: %.2f\n", calculeazaPretMediuLD(lista));
 	char* numeFirma = getFirmaStilouScump(lista);
 	printf("Cel mai scump stilou este de la firma: %s", numeFirma);
 	dezalocareLDStilouri(&lista);
-	free(numeFirma);
+	free(numeFirma);*/
+
+	Hashtable ht = citireStilouriDinFisierHT("stilouri.txt", 7);
+	afisareHashtable(ht);
 	
 	return 0;
 } 
