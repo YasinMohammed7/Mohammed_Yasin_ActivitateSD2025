@@ -349,6 +349,19 @@ void adaugaStilouInListaHash(Nod* cap, Stilou stilouNou) {
 		p->next = nou;
 }
 
+void inserareStilouTabela(Hashtable ht, Stilou stilouNou) {
+	int pozitie = calculeazaHash(stilouNou.firma, ht.dim);
+
+	if (ht.tabela[pozitie] == NULL) {
+		ht.tabela[pozitie] = (Nod*)malloc(sizeof(Nod));
+		ht.tabela[pozitie]->info = stilouNou;
+		ht.tabela[pozitie]->next = NULL;
+	}
+	else {
+		adaugaStilouInListaHash(ht.tabela[pozitie], stilouNou);
+	}
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
