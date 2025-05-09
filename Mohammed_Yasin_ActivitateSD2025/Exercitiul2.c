@@ -337,6 +337,18 @@ int calculeazaHash(const char* firma, int dimensiune) {
 	return suma % dimensiune;
 }
 
+void adaugaStilouInListaHash(Nod* cap, Stilou stilouNou) {
+	// la sfarsit
+	Nod* nou = (Nod*)malloc(sizeof(Nod));
+	nou->info = stilouNou; // shallow copy
+	nou->next = NULL;
+		Nod* p = cap;
+		while (p->next) {
+			p = p->next;
+		}
+		p->next = nou;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
