@@ -181,6 +181,8 @@ float pretStilouPerFirma(Nod* cap, const char* firma) {
 	
 }
 
+// Lista dublu inlantuita
+
 typedef struct DNod{
 	Stilou info;
 	struct DNod* next;
@@ -307,6 +309,23 @@ char* getFirmaStilouScump(ListaDubla lista) {
 	
 }
 
+// Hashtable(vector de pointeri)
+
+typedef struct {
+	int dim;
+	Nod** tabela;
+} Hashtable;
+
+Hashtable initHashTable(int dim) {
+	Hashtable ht;
+	ht.dim = dim;
+	ht.tabela = (Nod**)malloc(sizeof(Nod*) * dim);
+	for (int i = 0; i < dim; i++) {
+		ht.tabela[i] = NULL;
+	}
+	return ht;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
@@ -327,6 +346,7 @@ int main() {
 	char* numeFirma = getFirmaStilouScump(lista);
 	printf("Cel mai scump stilou este de la firma: %s", numeFirma);
 	dezalocareLDStilouri(&lista);
+	free(numeFirma);
 	
 	return 0;
 } 
