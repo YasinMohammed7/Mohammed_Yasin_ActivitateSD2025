@@ -326,6 +326,17 @@ Hashtable initHashTable(int dim) {
 	return ht;
 }
 
+int calculeazaHash(const char* firma, int dimensiune) {
+	int suma = 0;
+
+	for (int i = 0; i < strlen(firma); i++)
+	{
+		suma += firma[i];
+	}
+
+	return suma % dimensiune;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
