@@ -362,6 +362,16 @@ void inserareStilouTabela(Hashtable ht, Stilou stilouNou) {
 	}
 }
 
+Hashtable citireStilouriDinFisierHT(const char* numeFisier, int dim) {
+	FILE* file = fopen(numeFisier, "r");
+	Hashtable ht = initHashTable(dim);
+	while (!feof(file)) {
+		inserareStilouTabela(ht, citireStilouFisier(file));
+	}
+	fclose(file);
+	return ht;
+}
+
 int main() {
 	//int nrStilouri = 0;
 	//char firma[20] = "parker";
